@@ -34,6 +34,7 @@
             <input
               type="text"
               class="form-control"
+              id="search-bar"
               placeholder="Search"
               aria-label="Search"
               aria-describedby="basic-addon2"
@@ -59,6 +60,7 @@
           </div>
         </div>
         <div class="col-9">
+          <!-- Card that shows the current information for selected city -->
           <div class="card border-secondary">
             <h3 class="card-title" id="city-name"></h3>
             <p class="card-text" id="temperature"></p>
@@ -66,73 +68,9 @@
             <p class="card-text" id="wind-speed"></p>
             <p class="card-text" id="uv-index"></p>
           </div>
+          <!-- 5 day forecast -->
           <h3>5 Day Forecast</h3>
-          <div class="card-group">
-            <div
-              class="card text-white bg-primary mb-3"
-              style="max-width: 300px"
-            >
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </p>
-              </div>
-            </div>
-            <div
-              class="card text-white bg-primary mb-3"
-              style="max-width: 300px"
-            >
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This card has supporting text below as a natural lead-in to
-                  additional content.
-                </p>
-              </div>
-            </div>
-            <div
-              class="card text-white bg-primary mb-3"
-              style="max-width: 300px"
-            >
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This card has even longer
-                  content than the first to show that equal height action.
-                </p>
-              </div>
-            </div>
-            <div
-              class="card text-white bg-primary mb-3"
-              style="max-width: 300px"
-            >
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This card has even longer
-                  content than the first to show that equal height action.
-                </p>
-              </div>
-            </div>
-            <div
-              class="card text-white bg-primary mb-3"
-              style="max-width: 300px"
-            >
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This card has even longer
-                  content than the first to show that equal height action.
-                </p>
-              </div>
-            </div>
-          </div>
+          <div class="card-group" id="five-day-forecast"></div>
         </div>
       </div>
     </div>
