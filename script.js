@@ -25,7 +25,7 @@ fetch(url1)
     humidityEl.textContent = `Humidity: ${humidity}%`;
     windSpeedEl.textContent = `Wind speed: ${windSpeed} MPH`;
 
-    let url2 = `http://api.openweathermap.org/data/2.5/uvi?appid=a4bf23428ce5ff544bccc01776c56dca&lat=${latitude}&lon=${longitude}`;
+    let url2 = `https://api.openweathermap.org/data/2.5/uvi?appid=a4bf23428ce5ff544bccc01776c56dca&lat=${latitude}&lon=${longitude}`;
     fetch(url2)
       .then((response) => response.json())
       .then((data) => {
