@@ -6,6 +6,10 @@
   height: auto;
 }
 
+li:hover {
+    background-color: rgb(236, 236, 236);
+  }
+
 #green {
   background-color: rgb(94, 253, 102);
   color: black;

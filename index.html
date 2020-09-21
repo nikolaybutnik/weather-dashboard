@@ -55,11 +55,7 @@
           <!-- Empty divs get appended here to hold search results -->
           <div class="card" style="width: 100%">
             <div class="card-header">Recent Searches</div>
-            <ul class="list-group list-group-flush" id="search-history">
-              <!-- <li class="list-group-item">Cras justo odio</li> -->
-              <!-- <li class="list-group-item">Dapibus ac facilisis in</li> -->
-              <!-- <li class="list-group-item">Vestibulum at eros</li> -->
-            </ul>
+            <ul class="list-group list-group-flush" id="search-history"></ul>
           </div>
         </div>
         <div class="col-9">
@@ -70,6 +66,12 @@
             <p class="card-text" id="humidity">Humidity:</p>
             <p class="card-text" id="wind-speed">Wind speed:</p>
             <p class="card-text" id="uv-index">UV Index:</p>
+            <img
+              src="#"
+              alt="current weather icon"
+              style="display: none"
+              class="current-forecast-weather-image"
+            />
           </div>
           <!-- 5 day forecast -->
           <h3>5 Day Forecast</h3>

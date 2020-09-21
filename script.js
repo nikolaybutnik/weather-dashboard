@@ -8,10 +8,10 @@ let searchBarEl = document.getElementById("search-bar");
 let searchButton = document.getElementById("search-btn");
 let fiveDayForecastEl = document.getElementById("five-day-forecast");
 let searchHistoryEl = document.getElementById("search-history");
-let historyButton = document.getElementsByClassName("history-button"); // ???????
+
+let lameValue = 0;
 
 // Make an API call for temperature, humidity, and wind speed. Also make a call for latitude and longitude to be used in a call for UV Index.
-// *Add error handling if city doesn't exist.*
 function callApi() {
   // Get the name of the city.
   let cityName = searchBarEl.value;
@@ -41,7 +41,6 @@ function callApi() {
         .then((data) => {
           // console.log(data);
           let forecastObj = data;
-          // console.log(forecastObj);
           // Define a function that creates a forecast card and populates it for each of the 5 days. Data is taken at midnight.
           let iterator = 0;
           function createForecastCard() {
@@ -89,6 +88,11 @@ function callApi() {
           } else {
             uvIndexEl.innerHTML = `UV index: <mark id="purple">${uvIndex}</mark>`;
           }
+          addSearchHistory();
+          // The following code accounts for the creation of empty elements when an invalid value is entered into search. The element is removed.
+          if (searchHistoryEl.firstElementChild.textContent === "") {
+            searchHistoryEl.firstChild.remove();
+          }
           // Clear the input field.
           searchBarEl.value = "";
         });
@@ -101,18 +105,20 @@ function addSearchHistory() {
   searchHistoryEl.insertAdjacentHTML("afterbegin", searchResult);
   let btnList = document.getElementsByClassName("history-button");
   for (i = 0; i < btnList.length; i++) {
-    btnList[i].addEventListener("click", ping);
+    btnList[i].addEventListener("click", callbackAPI);
   }
 }
 
 // Define a click event for the search button that makes a call to the API.
 searchButton.addEventListener("click", function () {
+  if (searchBarEl.value === "") {
+    return;
+  }
   callApi();
-  addSearchHistory();
 });
 
 // Define a function that calls the API on search result clicks.
-function ping(event) {
+function callbackAPI(event) {
   searchBarEl.value = event.target.textContent;
   callApi();
   searchBarEl.value = "";
