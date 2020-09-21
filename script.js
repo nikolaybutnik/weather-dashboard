@@ -9,15 +9,20 @@ let searchButton = document.getElementById("search-btn");
 let fiveDayForecastEl = document.getElementById("five-day-forecast");
 let searchHistoryEl = document.getElementById("search-history");
 
-let lameValue = 0;
-
 // Make an API call for temperature, humidity, and wind speed. Also make a call for latitude and longitude to be used in a call for UV Index.
 function callApi() {
   // Get the name of the city.
   let cityName = searchBarEl.value;
 
-  // Clear any existing cards form the screen.
-  fiveDayForecastEl.innerHTML = "";
+  // Make a call to API to get current weather data
+  // cityNameEl.textContent = `${cityName.toUpperCase()}`;
+  // let currentDataUrl = `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${cityName}&appid=a4bf23428ce5ff544bccc01776c56dca&units=metric`;
+  // fetch(currentDataUrl)
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     console.log(data)
+  //   })
+
 
   // Make a call to API that gets basic weather data and push it onto the screen.
   let url1 = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=a4bf23428ce5ff544bccc01776c56dca&units=metric`;
@@ -41,8 +46,8 @@ function callApi() {
         .then((data) => {
           // console.log(data);
           let forecastObj = data;
-          // Define a function that creates a forecast card and populates it for each of the 5 days. Data is taken at midnight.
-          let iterator = 0;
+          // Define a nested function that creates a forecast card and populates it for each of the 5 days.
+          let iterator = 5;
           function createForecastCard() {
             let date = forecastObj.list[iterator].dt_txt.substr(0, 10);
             let temp = forecastObj.list[iterator].main.temp.toFixed(0);
@@ -52,7 +57,7 @@ function callApi() {
               <div class="card text-white bg-primary mb-2"
                 style="max-width: 300px; max-height: 200px; margin-left: 15px; margin-right: 15px;">
                 <h6 class="card-header forecast-date">${date}</h6>
-                <img src="http://openweathermap.org/img/w/${icon}.png" alt="weather icon" class="forecast-weather-image" />
+                <img src="https://openweathermap.org/img/w/${icon}.png" alt="weather icon" class="forecast-weather-image" />
                 <div class="card-body">
                   <p class="forecast-temperature">Temp: ${temp} °C</p>
                   <p class="forecast-humidity">Hum: ${hum}%</p>
@@ -61,21 +66,19 @@ function callApi() {
             fiveDayForecastEl.innerHTML += cardHTML;
             iterator += 8;
           }
+          // Clear any existing cards form the screen.
+          fiveDayForecastEl.innerHTML = "";
           for (let i = 0; i < 5; i++) {
             createForecastCard();
           }
         });
 
-      // Make a call to API that gets UV data and push it onto the screen. Add city name with current data to the screen.
+      // Make a call to API that gets UV data and push it onto the screen.
       let url3 = `https://api.openweathermap.org/data/2.5/uvi?appid=a4bf23428ce5ff544bccc01776c56dca&lat=${latitude}&lon=${longitude}`;
       fetch(url3)
         .then((response) => response.json())
         .then((data) => {
           // console.log(data);
-          cityNameEl.textContent = `${cityName.toUpperCase()} (${data.date_iso.substr(
-            0,
-            10
-          )})`;
           let uvIndex = data.value;
           if (uvIndex <= 2) {
             uvIndexEl.innerHTML = `UV index: <mark id="green">${uvIndex}</mark>`;
