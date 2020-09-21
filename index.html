@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-
+    ​
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -15,22 +15,31 @@
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
       crossorigin="anonymous"
     />
-
+    ​
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css" />
-
+    <link rel="stylesheet" href="./style.css" />
+    ​
     <!-- Font Awesome -->
     <script
       src="https://kit.fontawesome.com/34b9bc8a79.js"
       crossorigin="anonymous"
     ></script>
-
+    ​
     <title>Weather Dashboard</title>
   </head>
+  ​
   <body>
+    <nav class="navbar-header navbar-light" style="background-color: #232729">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <h1 class="weather-dashboard-title">Weather Dashboard</h1>
+        </div>
+      </div>
+    </nav>
+    ​
     <div class="container">
       <div class="row">
-        <div class="col-3">
+        <div class="col-md-3">
           <h5>Search for a city</h5>
           <!-- Search form -->
           <div class="input-group mb-3">
@@ -58,9 +67,10 @@
             <ul class="list-group list-group-flush" id="search-history"></ul>
           </div>
         </div>
-        <div class="col-9">
+        ​
+        <div class="col-md-9">
           <!-- Card that shows the current information for selected city -->
-          <div class="card border-secondary">
+          <div id="city-search-card" class="card border-secondary">
             <h3 class="card-title" id="city-name">Search for a city</h3>
             <p class="card-text" id="temperature">Temperature:</p>
             <p class="card-text" id="humidity">Humidity:</p>
@@ -74,12 +84,14 @@
             />
           </div>
           <!-- 5 day forecast -->
-          <h3>5 Day Forecast</h3>
-          <div class="card-group" id="five-day-forecast"></div>
+          <div class="container">
+            <h3>5 Day Forecast</h3>
+            <div class="row" id="five-day-forecast"></div>
+          </div>
         </div>
       </div>
     </div>
-
+    ​
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script

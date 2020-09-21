@@ -10,10 +10,7 @@ let fiveDayForecastEl = document.getElementById("five-day-forecast");
 let searchHistoryEl = document.getElementById("search-history");
 
 // Make an API call for temperature, humidity, and wind speed. Also make a call for latitude and longitude to be used in a call for UV Index.
-function callApi() {
-  // Get the name of the city.
-  let cityName = searchBarEl.value;
-
+function callApi(cityName, verify) {
   // Make a call to API to get current weather data
   // cityNameEl.textContent = `${cityName.toUpperCase()}`;
   // let currentDataUrl = `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${cityName}&appid=a4bf23428ce5ff544bccc01776c56dca&units=metric`;
@@ -23,18 +20,24 @@ function callApi() {
   //     console.log(data)
   //   })
 
-
   // Make a call to API that gets basic weather data and push it onto the screen.
   let url1 = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=a4bf23428ce5ff544bccc01776c56dca&units=metric`;
   fetch(url1)
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data);
+      console.log(data);
+      let currentDateUnix = data.dt;
+      console.log(currentDateUnix);
+      let currentDate = new Date(currentDateUnix * 1000)
+        .toISOString()
+        .split("T")[0];
+      console.log(currentDate);
       let tempCelsius = data.main.temp.toFixed(0);
       let humidity = data.main.humidity;
       let windSpeed = data.wind.speed;
       let latitude = data.coord.lat;
       let longitude = data.coord.lon;
+      cityNameEl.textContent = `${cityName.toUpperCase()} (${currentDate})`;
       temperatureEl.textContent = `Temperature: ${tempCelsius} °C`;
       humidityEl.textContent = `Humidity: ${humidity}%`;
       windSpeedEl.textContent = `Wind speed: ${windSpeed} MPH`;
@@ -54,15 +57,16 @@ function callApi() {
             let hum = forecastObj.list[iterator].main.humidity;
             let icon = forecastObj.list[iterator].weather[0].icon;
             const cardHTML = `
-              <div class="card text-white bg-primary mb-2"
-                style="max-width: 300px; max-height: 200px; margin-left: 15px; margin-right: 15px;">
+            <div class="card-group">
+              <div class="card text-white bg-primary mb-2" style="max-width: 10rem; max-height: 15rem; margin-left: 10px; margin-right: 10px; margin-top: 0px;">
                 <h6 class="card-header forecast-date">${date}</h6>
-                <img src="https://openweathermap.org/img/w/${icon}.png" alt="weather icon" class="forecast-weather-image" />
+                <img src="https://openweathermap.org/img/w/${icon}.png" alt="weather icon" class="forecast-weather-image"/>
                 <div class="card-body">
                   <p class="forecast-temperature">Temp: ${temp} °C</p>
                   <p class="forecast-humidity">Hum: ${hum}%</p>
                 </div>
-              </div>`;
+              </div>
+            </div>`;
             fiveDayForecastEl.innerHTML += cardHTML;
             iterator += 8;
           }
@@ -91,15 +95,15 @@ function callApi() {
           } else {
             uvIndexEl.innerHTML = `UV index: <mark id="purple">${uvIndex}</mark>`;
           }
-          addSearchHistory();
-          // The following code accounts for the creation of empty elements when an invalid value is entered into search. The element is removed.
-          if (searchHistoryEl.firstElementChild.textContent === "") {
-            searchHistoryEl.firstChild.remove();
+          // Verify if search history needs to be updated. Otherwise do nothing.
+          if (verify) {
+            addSearchHistory();
           }
           // Clear the input field.
           searchBarEl.value = "";
         });
-    });
+    })
+    .catch((err) => err);
 }
 
 // Define a function that adds an entry in "Recent Searches" each time a search is made.
@@ -113,16 +117,20 @@ function addSearchHistory() {
 }
 
 // Define a click event for the search button that makes a call to the API.
+// ***Also check in input is a number and return empty.
 searchButton.addEventListener("click", function () {
   if (searchBarEl.value === "") {
     return;
   }
-  callApi();
+  // Pass in the name of the city to be used in apiCall above. Also pass in a boolean that will act is a check whether to add the item to search history.
+  callApi(searchBarEl.value, true);
 });
 
 // Define a function that calls the API on search result clicks.
 function callbackAPI(event) {
-  searchBarEl.value = event.target.textContent;
-  callApi();
+  // Pass in city name obtained from text content of the clicked element. As we don't need to add the item to search history, don't pass in the boolean.
+  callApi(event.target.textContent);
   searchBarEl.value = "";
 }
+
+// Define a function that saves latest search to local storage.
