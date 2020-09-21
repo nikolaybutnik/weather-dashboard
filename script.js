@@ -7,6 +7,8 @@ let uvIndexEl = document.getElementById("uv-index");
 let searchBarEl = document.getElementById("search-bar");
 let searchButton = document.getElementById("search-btn");
 let fiveDayForecastEl = document.getElementById("five-day-forecast");
+let searchHistoryEl = document.getElementById("search-history");
+let historyButton = document.getElementsByClassName("history-button"); // ???????
 
 // Make an API call for temperature, humidity, and wind speed. Also make a call for latitude and longitude to be used in a call for UV Index.
 // *Add error handling if city doesn't exist.*
@@ -22,13 +24,12 @@ function callApi() {
   fetch(url1)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       let tempCelsius = data.main.temp.toFixed(0);
       let humidity = data.main.humidity;
       let windSpeed = data.wind.speed;
       let latitude = data.coord.lat;
       let longitude = data.coord.lon;
-      cityNameEl.textContent = `${cityName.toUpperCase()} ${}`;
       temperatureEl.textContent = `Temperature: ${tempCelsius} °C`;
       humidityEl.textContent = `Humidity: ${humidity}%`;
       windSpeedEl.textContent = `Wind speed: ${windSpeed} MPH`;
@@ -38,6 +39,7 @@ function callApi() {
       fetch(url2)
         .then((response) => response.json())
         .then((data) => {
+          // console.log(data);
           let forecastObj = data;
           // console.log(forecastObj);
           // Define a function that creates a forecast card and populates it for each of the 5 days. Data is taken at midnight.
@@ -46,11 +48,12 @@ function callApi() {
             let date = forecastObj.list[iterator].dt_txt.substr(0, 10);
             let temp = forecastObj.list[iterator].main.temp.toFixed(0);
             let hum = forecastObj.list[iterator].main.humidity;
+            let icon = forecastObj.list[iterator].weather[0].icon;
             const cardHTML = `
               <div class="card text-white bg-primary mb-2"
                 style="max-width: 300px; max-height: 200px; margin-left: 15px; margin-right: 15px;">
                 <h6 class="card-header forecast-date">${date}</h6>
-                <img src="#" class="forecast-weather-image" />
+                <img src="http://openweathermap.org/img/w/${icon}.png" alt="weather icon" class="forecast-weather-image" />
                 <div class="card-body">
                   <p class="forecast-temperature">Temp: ${temp} °C</p>
                   <p class="forecast-humidity">Hum: ${hum}%</p>
@@ -64,16 +67,43 @@ function callApi() {
           }
         });
 
-      // Make a call to API that gets UV data and push it onto the screen.
+      // Make a call to API that gets UV data and push it onto the screen. Add city name with current data to the screen.
       let url3 = `https://api.openweathermap.org/data/2.5/uvi?appid=a4bf23428ce5ff544bccc01776c56dca&lat=${latitude}&lon=${longitude}`;
       fetch(url3)
         .then((response) => response.json())
         .then((data) => {
+          // console.log(data);
+          cityNameEl.textContent = `${cityName.toUpperCase()} (${data.date_iso.substr(
+            0,
+            10
+          )})`;
           let uvIndex = data.value;
           uvIndexEl.textContent = `UV Index: ${uvIndex}`;
+          // Clear the input field.
+          searchBarEl.value = "";
         });
     });
 }
 
-// Define a click event for the search button that makes a call to the api.
-searchButton.addEventListener("click", callApi);
+// Define a function that adds an entry in "Recent Searches" each time a search is made.
+function addSearchHistory() {
+  const searchResult = `<li class="list-group-item history-button">${searchBarEl.value}</li>`;
+  searchHistoryEl.insertAdjacentHTML("afterbegin", searchResult);
+  let btnList = document.getElementsByClassName("history-button");
+  for (i = 0; i < btnList.length; i++) {
+    btnList[i].addEventListener("click", ping);
+  }
+}
+
+// Define a click event for the search button that makes a call to the API.
+searchButton.addEventListener("click", function () {
+  callApi();
+  addSearchHistory();
+});
+
+// Define a function that calls the API on search result clicks.
+function ping(event) {
+  searchBarEl.value = event.target.textContent;
+  callApi();
+  searchBarEl.value = "";
+}
