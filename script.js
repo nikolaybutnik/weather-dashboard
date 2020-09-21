@@ -78,7 +78,17 @@ function callApi() {
             10
           )})`;
           let uvIndex = data.value;
-          uvIndexEl.textContent = `UV Index: ${uvIndex}`;
+          if (uvIndex <= 2) {
+            uvIndexEl.innerHTML = `UV index: <mark id="green">${uvIndex}</mark>`;
+          } else if (uvIndex > 2 && uvIndex <= 5) {
+            uvIndexEl.innerHTML = `UV index: <mark id="yellow">${uvIndex}</mark>`;
+          } else if (uvIndex > 5 && uvIndex <= 7) {
+            uvIndexEl.innerHTML = `UV index: <mark id="orange">${uvIndex}</mark>`;
+          } else if (uvIndex > 7 && uvIndex <= 10) {
+            uvIndexEl.innerHTML = `UV index: <mark id="red">${uvIndex}</mark>`;
+          } else {
+            uvIndexEl.innerHTML = `UV index: <mark id="purple">${uvIndex}</mark>`;
+          }
           // Clear the input field.
           searchBarEl.value = "";
         });

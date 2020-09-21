@@ -5,3 +5,32 @@
   max-width: 100%;
   height: auto;
 }
+
+#green {
+  background-color: rgb(94, 253, 102);
+  color: black;
+  border-radius: 10px;
+}
+
+#yellow {
+  background-color: rgb(248, 252, 5);
+  color: black;
+  border-radius: 10px;
+}
+
+#orange {
+  background-color: rgb(253, 165, 2);
+  color: black;
+  border-radius: 10px;
+}
+
+#red {
+  background-color: rgb(255, 14, 14);
+  color: black;
+  border-radius: 10px;
+}
+
+#purple {
+    background-color: rgb(178, 45, 255);
+    color: black;
+    border-radius: 10px;
