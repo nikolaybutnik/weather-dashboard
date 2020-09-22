@@ -29,27 +29,27 @@
   </head>
   ​
   <body>
-    <nav class="navbar-header navbar-light" style="background-color: #232729">
+    <!-- <nav class="navbar-header navbar-light" style="background-color: #232729">
       <div class="container-fluid">
         <div class="navbar-header">
           <h1 class="weather-dashboard-title">Weather Dashboard</h1>
         </div>
       </div>
-    </nav>
+    </nav> -->
     ​
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <h5>Search for a city</h5>
           <!-- Search form -->
-          <div class="input-group mb-3">
+          <div class="input-group mb-3" id="search-form">
             <input
               type="text"
               class="form-control"
               id="search-bar"
               placeholder="Search"
               aria-label="Search"
-              aria-describedby="basic-addon2"
+              aria-describedby="search-bar"
             />
             <div class="input-group-append">
               <button
@@ -68,25 +68,30 @@
           </div>
         </div>
         ​
-        <div class="col-md-9">
+        <div class="col-md-8">
           <!-- Card that shows the current information for selected city -->
           <div id="city-search-card" class="card border-secondary">
-            <h3 class="card-title" id="city-name">Search for a city</h3>
+            <h3 class="card-title" id="city-name">
+              Use the search bar to input a city
+            </h3>
             <img
               src="#"
               alt="current weather icon"
               id="current-forecast-weather-image"
               style="display: none"
             />
-            <p class="card-text" id="temperature">Temperature:</p>
-            <p class="card-text" id="humidity">Humidity:</p>
-            <p class="card-text" id="wind-speed">Wind speed:</p>
-            <p class="card-text" id="uv-index">UV Index:</p>
+            <p class="card-text" id="temperature"></p>
+            <p class="card-text" id="humidity"></p>
+            <p class="card-text" id="wind-speed"></p>
+            <p class="card-text" id="uv-index"></p>
           </div>
           <!-- 5 day forecast -->
           <div class="container">
-            <h3>5 Day Forecast</h3>
-            <div class="row" id="five-day-forecast"></div>
+            <h3 id="forecast-text"></h3>
+            <div
+              class="row d-flex justify-content-center"
+              id="five-day-forecast"
+            ></div>
           </div>
         </div>
       </div>

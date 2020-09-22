@@ -24,7 +24,7 @@ function callApi(cityName, verify) {
   fetch(url1)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       let currentDateUnix = data.dt;
       let currentDate = new Date(currentDateUnix * 1000)
         .toISOString()
@@ -61,7 +61,7 @@ function callApi(cityName, verify) {
             let icon = forecastObj.list[iterator].weather[0].icon;
             const cardHTML = `
             <div class="card-group">
-              <div class="card text-white bg-primary mb-2" style="max-width: 10rem; max-height: 15rem; margin-left: 10px; margin-right: 10px; margin-top: 0px;">
+              <div class="card text-white bg-primary mb-2" style="max-width: 12rem; max-height: 15rem; margin-left: 9px; margin-right: 9px; margin-top: 5px;">
                 <h6 class="card-header forecast-date">${date}</h6>
                 <img src="https://openweathermap.org/img/w/${icon}.png" alt="weather icon" class="forecast-weather-image"/>
                 <div class="card-body">
@@ -73,7 +73,9 @@ function callApi(cityName, verify) {
             fiveDayForecastEl.innerHTML += cardHTML;
             iterator += 8;
           }
-          // Clear any existing cards form the screen.
+          // Clear any existing cards form the screen and create 5 day forecast cards.
+          document.getElementById("forecast-text").textContent =
+            "5 Day Forecast";
           fiveDayForecastEl.innerHTML = "";
           for (let i = 0; i < 5; i++) {
             createForecastCard();
@@ -106,12 +108,12 @@ function callApi(cityName, verify) {
           searchBarEl.value = "";
         });
     })
-    .catch((err) => err);
+    .catch((err) => console.log(err));
 }
 
 // Define a function that adds an entry in "Recent Searches" each time a search is made.
 function addSearchHistory() {
-  const searchResult = `<li class="list-group-item history-button">${searchBarEl.value}</li>`;
+  const searchResult = `<li class="list-group-item history-button">${searchBarEl.value.toUpperCase()}</li>`;
   searchHistoryEl.insertAdjacentHTML("afterbegin", searchResult);
   let btnList = document.getElementsByClassName("history-button");
   for (i = 0; i < btnList.length; i++) {
@@ -140,8 +142,5 @@ function callbackAPI(event) {
 
 // Define a function that saves latest search to local storage.
 function saveSearch(cityName) {
-  localStorage.setItem("Weather Dashboard Last Search", cityName);
+  localStorage.setItem("Weather Dashboard Last Search", cityName.toLowerCase());
 }
-
-// TODO LIST:
-// - check if input is a number and return empty

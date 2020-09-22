@@ -42,7 +42,8 @@ li:hover {
 
 #city-search-card {
   margin: 3px;
-  padding: 3px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 ​.card-title {
@@ -50,7 +51,13 @@ li:hover {
 }
 
 .card-text {
+  font-size: 22px;
+  font-weight: bold;
   margin: 2px;
+}
+
+#city-name {
+  font-weight: bold;
 }
 
 ​.weather-dashboard-title {
