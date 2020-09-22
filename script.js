@@ -8,6 +8,9 @@ let searchBarEl = document.getElementById("search-bar");
 let searchButton = document.getElementById("search-btn");
 let fiveDayForecastEl = document.getElementById("five-day-forecast");
 let searchHistoryEl = document.getElementById("search-history");
+let currentWeatherImg = document.getElementById(
+  "current-forecast-weather-image"
+);
 
 // On startup, check if anything is saved to local storage. If yes, run api to load the data.
 if (localStorage.getItem("Weather Dashboard Last Search") !== null) {
@@ -23,17 +26,21 @@ function callApi(cityName, verify) {
     .then((data) => {
       console.log(data);
       let currentDateUnix = data.dt;
-      console.log(currentDateUnix);
       let currentDate = new Date(currentDateUnix * 1000)
         .toISOString()
         .split("T")[0];
-      console.log(currentDate);
       let tempCelsius = data.main.temp.toFixed(0);
       let humidity = data.main.humidity;
       let windSpeed = data.wind.speed;
       let latitude = data.coord.lat;
       let longitude = data.coord.lon;
       cityNameEl.textContent = `${cityName.toUpperCase()} (${currentDate})`;
+      currentWeatherImg.setAttribute(
+        "src",
+        `https://openweathermap.org/img/w/${data.weather[0].icon}.png`
+      );
+      currentWeatherImg.setAttribute("style", "display: inline;");
+      currentWeatherImg.setAttribute("width", "100px");
       temperatureEl.textContent = `Temperature: ${tempCelsius} °C`;
       humidityEl.textContent = `Humidity: ${humidity}%`;
       windSpeedEl.textContent = `Wind speed: ${windSpeed} MPH`;
@@ -138,4 +145,3 @@ function saveSearch(cityName) {
 
 // TODO LIST:
 // - check if input is a number and return empty
-// - add current weather icon to main card
