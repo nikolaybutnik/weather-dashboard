@@ -9,17 +9,13 @@ let searchButton = document.getElementById("search-btn");
 let fiveDayForecastEl = document.getElementById("five-day-forecast");
 let searchHistoryEl = document.getElementById("search-history");
 
+// On startup, check if anything is saved to local storage. If yes, run api to load the data.
+if (localStorage.getItem("Weather Dashboard Last Search") !== null) {
+  callApi(localStorage.getItem("Weather Dashboard Last Search"));
+}
+
 // Make an API call for temperature, humidity, and wind speed. Also make a call for latitude and longitude to be used in a call for UV Index.
 function callApi(cityName, verify) {
-  // Make a call to API to get current weather data
-  // cityNameEl.textContent = `${cityName.toUpperCase()}`;
-  // let currentDataUrl = `https://pro.openweathermap.org/data/2.5/forecast/hourly?q=${cityName}&appid=a4bf23428ce5ff544bccc01776c56dca&units=metric`;
-  // fetch(currentDataUrl)
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     console.log(data)
-  //   })
-
   // Make a call to API that gets basic weather data and push it onto the screen.
   let url1 = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=a4bf23428ce5ff544bccc01776c56dca&units=metric`;
   fetch(url1)
@@ -117,20 +113,29 @@ function addSearchHistory() {
 }
 
 // Define a click event for the search button that makes a call to the API.
-// ***Also check in input is a number and return empty.
 searchButton.addEventListener("click", function () {
   if (searchBarEl.value === "") {
     return;
   }
   // Pass in the name of the city to be used in apiCall above. Also pass in a boolean that will act is a check whether to add the item to search history.
   callApi(searchBarEl.value, true);
+  saveSearch(searchBarEl.value);
+  // searchBarEl.value = "";
 });
 
 // Define a function that calls the API on search result clicks.
 function callbackAPI(event) {
   // Pass in city name obtained from text content of the clicked element. As we don't need to add the item to search history, don't pass in the boolean.
   callApi(event.target.textContent);
-  searchBarEl.value = "";
+  saveSearch(event.target.textContent);
+  // searchBarEl.value = "";
 }
 
 // Define a function that saves latest search to local storage.
+function saveSearch(cityName) {
+  localStorage.setItem("Weather Dashboard Last Search", cityName);
+}
+
+// TODO LIST:
+// - check if input is a number and return empty
+// - add current weather icon to main card
