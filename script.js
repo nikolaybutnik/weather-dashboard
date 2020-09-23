@@ -24,7 +24,6 @@ function callApi(cityName, verify) {
   fetch(url1)
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data);
       let currentDateUnix = data.dt;
       let currentDate = new Date(currentDateUnix * 1000)
         .toISOString()
@@ -50,7 +49,6 @@ function callApi(cityName, verify) {
       fetch(url2)
         .then((response) => response.json())
         .then((data) => {
-          // console.log(data);
           let forecastObj = data;
           // Define a nested function that creates a forecast card and populates it for each of the 5 days.
           let iterator = 5;
@@ -87,7 +85,6 @@ function callApi(cityName, verify) {
       fetch(url3)
         .then((response) => response.json())
         .then((data) => {
-          // console.log(data);
           let uvIndex = data.value;
           if (uvIndex <= 2) {
             uvIndexEl.innerHTML = `UV index: <mark id="green">${uvIndex}</mark>`;
@@ -129,7 +126,6 @@ searchButton.addEventListener("click", function () {
   // Pass in the name of the city to be used in apiCall above. Also pass in a boolean that will act is a check whether to add the item to search history.
   callApi(searchBarEl.value, true);
   saveSearch(searchBarEl.value);
-  // searchBarEl.value = "";
 });
 
 // Define a function that calls the API on search result clicks.
@@ -137,7 +133,6 @@ function callbackAPI(event) {
   // Pass in city name obtained from text content of the clicked element. As we don't need to add the item to search history, don't pass in the boolean.
   callApi(event.target.textContent);
   saveSearch(event.target.textContent);
-  // searchBarEl.value = "";
 }
 
 // Define a function that saves latest search to local storage.
