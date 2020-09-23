@@ -3,7 +3,7 @@
 Project 6 for Carleton University Coding Bootcamp. This project focused on creating a weather display system that returns weather data when user searches by location name. The user is the presented with current weather data, as well as a forecast for the next five days. Weather is updated every three hours.
 [Link to application](https://nikolaybutnik.github.io/weather-dashboard/)
 
-![Weather Dashboard Image](https://github.com/nikolaybutnik/weather-dashboard/weather-dashboard-screenshot.png)
+![Weather Dashboard Image](https://github.com/nikolaybutnik/weather-dashboard/blob/master/weather-dashboard-screenshot.png?raw=true)
 
 ## Pupose
 
