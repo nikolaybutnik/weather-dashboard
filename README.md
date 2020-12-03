@@ -1,8 +1,9 @@
-# Project 6: Weather Dashboard
+# Weather Dashboard
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Project 6 for Carleton University Coding Bootcamp. This project focused on creating a weather display system that returns weather data when user searches by location name. The user is then presented with current weather data, as well as a forecast for the next five days. Weather is updated every three hours.
+A project done as part of Carleton University Coding Bootcamp. The focus was on creating a weather display system that returns weather data when user searches by location name. The user is then presented with current weather data, as well as a forecast for the next five days. Weather is updated every three hours.
+
 [Link to application](https://nikolaybutnik.github.io/weather-dashboard/)
 
 ![Weather Dashboard Image](https://github.com/nikolaybutnik/weather-dashboard/blob/master/weather-dashboard-screenshot.png?raw=true)
